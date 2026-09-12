@@ -60,7 +60,9 @@
 
   /* ---------- HERO ---------- */
   .hero{position:relative;height:100vh;min-height:640px;display:flex;align-items:flex-end;overflow:hidden;background:var(--ink);z-index:1;}
-  .hero video, .hero .fallback-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.86;}
+  /* Seamless Video Loading Fix: starts hidden and fades in when ready */
+  .hero video, .hero .fallback-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s ease;}
+  .hero video.is-loaded{opacity:.86;}
   .hero::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,16,19,.35) 0%, rgba(15,16,19,.15) 35%, rgba(15,16,19,.85) 100%);}
   .hero-content{position:relative;z-index:2;color:#fff;padding-bottom:88px;max-width:760px;opacity:0;transform:translateY(22px);animation:heroIn 1.1s .25s cubic-bezier(.16,.9,.3,1) forwards;}
   @keyframes heroIn{to{opacity:1;transform:translateY(0);}}
@@ -127,16 +129,44 @@
   .kit-label .name{font-size:14px;font-weight:500;}
   .kit-label .price{font-size:12.5px;opacity:.8;margin-top:2px;}
 
-  /* ---------- MOBILE FALLBACK: unstack everything ---------- */
+  /* ---------- MOBILE FALLBACK: Horizontal swipe carousels ---------- */
   @media(max-width:860px){
     .story-wrap, .clubs-wrap, .member-text-wrap, .kit-wrap{height:auto;margin-top:0;}
     .story-panel, .clubs-panel, .member-text-panel, .kit-panel{position:relative;height:auto;padding:80px 0;}
     .story-inner{grid-template-columns:1fr;}
     .story-copy{padding:0 22px;order:2;}
     .story-media{height:44vh;order:1;margin-bottom:30px;}
-    .club-row-full, .kit-row-full{grid-template-columns:1fr;height:auto;}
-    .club-card{height:260px;}
-    .kit-card{height:260px;}
+    
+    /* Horizontal Swipe Containers */
+    .club-row-full, .kit-row-full{
+      display:flex;
+      grid-template-columns:none;
+      overflow-x:auto;
+      scroll-snap-type:x mandatory;
+      -webkit-overflow-scrolling:touch;
+      height:auto;
+      padding:0 22px 16px;
+      gap:16px;
+    }
+    
+    /* Hide scrollbars for clean aesthetic */
+    .club-row-full::-webkit-scrollbar, .kit-row-full::-webkit-scrollbar{
+      display:none;
+    }
+    .club-row-full, .kit-row-full{
+      -ms-overflow-style:none;
+      scrollbar-width:none;
+    }
+
+    /* Swipeable Card Items */
+    .club-card, .kit-card{
+      flex:0 0 82vw;
+      width:82vw;
+      height:360px;
+      scroll-snap-align:start;
+      border-radius:4px;
+    }
+    
     .section-head, .kit-panel .wrap{padding:0 22px;}
   }
 
@@ -199,7 +229,8 @@
 </header>
 
 <section class="hero" id="top">
-  <video autoplay muted loop playsinline poster="videoload.jpg">
+  <!-- Added preload="auto" for rapid buffering -->
+  <video id="heroVideo" autoplay muted loop playsinline preload="auto" poster="videoload.jpg">
     <source src="courtvideo.mp4" type="video/mp4">
   </video>
   <div class="hero-content wrap">
@@ -360,11 +391,24 @@
 </footer>
 
 <script>
+  // Handle Header Solid Transition
   const header = document.getElementById('siteHeader');
   window.addEventListener('scroll', () => {
     if (window.scrollY > 40) header.classList.add('solid');
     else header.classList.remove('solid');
   }, { passive:true });
+
+  // Instant/Invisible Video Loading Check
+  const video = document.getElementById('heroVideo');
+  if (video) {
+    if (video.readyState >= 3) {
+      video.classList.add('is-loaded');
+    } else {
+      video.addEventListener('canplaythrough', () => {
+        video.classList.add('is-loaded');
+      }, { once: true });
+    }
+  }
 
   // Fade the giant "Become a Member" text as its pinned section
   // approaches the point where the next section covers it.
