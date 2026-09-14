@@ -81,7 +81,6 @@
     opacity: 1;
     transform: translateY(0);
   }
-  /* Staggered steps for sequential entry */
   .reveal-step-1 { transition-delay: 0.2s; }
   .reveal-step-2 { transition-delay: 0.6s; }
   .reveal-step-3 { transition-delay: 1.0s; }
@@ -171,7 +170,7 @@
     .rp-link { justify-content: center; }
   }
 
-  /* ---------- MANIFESTO SECTION (Unstuck Normal Flow) ---------- */
+  /* ---------- MANIFESTO SECTION ---------- */
   .story-section{background:var(--white);padding:140px 0;}
   .story-inner{display:grid;grid-template-columns:minmax(320px,40%) 1fr;align-items:center;gap:80px;}
   .story-copy .eyebrow{font-size:13px;color:var(--brass);margin-bottom:16px;letter-spacing:.08em;text-transform:uppercase;}
@@ -195,7 +194,7 @@
   .pillar-card h3 { font-size: 24px; color: #fff; margin-bottom: 12px; font-weight: 400; }
   .pillar-card p { font-size: 14.5px; color: rgba(237,234,226,.72); line-height: 1.6; }
 
-  /* ---------- MEMBERSHIP SCROLL SECTION (From index.html) ---------- */
+  /* ---------- MEMBERSHIP SCROLL SECTION ---------- */
   .member-text-wrap{position:relative;height:200vh;z-index:4;}
   .member-text-panel{position:sticky;top:0;height:100vh;background:var(--white);display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;text-align:center;}
   .member-text-panel .eyebrow{font-size:13px;color:var(--brass);margin-bottom:22px;}
@@ -208,7 +207,7 @@
 
   /* ---------- NEWSLETTER BAND ---------- */
   .newsletter-band{background:var(--ink);color:var(--ivory);padding:80px 0;}
-  .nl-inner{display:flex;justify-content:space-between;align-items:center;gap:40px;flex-wrap:wrap;}
+  .nl-inner{display:flex;justify-space-between;align-items:center;gap:40px;flex-wrap:wrap;}
   .nl-inner h3{font-size:clamp(22px,2.6vw,30px);font-weight:400;max-width:16ch;color:#fff;}
   .nl-form{display:flex;gap:0;border-bottom:1px solid rgba(237,234,226,.4);min-width:340px;max-width:420px;flex:1;}
   .nl-form input[type=email]{background:none;border:none;color:#fff;font-size:15px;padding:10px 0;flex:1;font-family:inherit;}
@@ -260,7 +259,7 @@
     </a>
     <nav class="links">
       <a href="our-story.html" style="opacity:1;">Our Story</a>
-      <a href="#membership">Membership</a>
+      <a href="membership.html">Membership</a>
       <div class="has-drop">
         <a href="index.html#clubs">Clubs</a>
         <div class="drop">
@@ -272,7 +271,7 @@
       <a href="index.html#events">Events</a>
       <a href="index.html#book">Reserve a Court</a>
     </nav>
-    <a href="#membership" class="cta-pill">Become a Member</a>
+    <a href="membership.html" class="cta-pill">Become a Member</a>
     <div class="burger"><span></span><span></span><span></span></div>
   </div>
 </header>
@@ -280,7 +279,7 @@
 <div class="mobile-drawer" id="mobileDrawer">
   <nav>
     <a href="our-story.html" class="drawer-link">Our Story</a>
-    <a href="#membership" class="drawer-link">Membership</a>
+    <a href="membership.html" class="drawer-link">Membership</a>
     <a href="index.html#clubs" class="drawer-link">Clubs</a>
     <div class="sub-links">
       <a href="index.html#clubs" class="drawer-link">Monture City (Jakarta)</a>
@@ -300,7 +299,6 @@
   </div>
 </section>
 
-<!-- Monture PADEL SHOWCASE (Staggered one by one, slower, independent steps) -->
 <section class="Monture-padel-showcase">
   <div class="wrap">
     <h2 class="reveal">Monture is the future of padel</h2>
@@ -322,7 +320,6 @@
   </div>
 </section>
 
-<!-- MANIFESTO SECTION (Unstuck / Normal Scroll Flow) -->
 <section class="story-section">
   <div class="wrap story-inner">
     <div class="story-copy reveal">
@@ -368,7 +365,6 @@
   </div>
 </section>
 
-<!-- MEMBERSHIP SCROLL SECTION -->
 <div class="member-text-wrap" id="membership">
   <div class="member-text-panel">
     <div class="fade-target" id="memberFade">
@@ -376,7 +372,7 @@
       <div class="giant">Become a<br>Member</div>
       <p class="sub">Built for a community of people that embrace a life of athletic elegance the spirit of competition and the pleasure of style.</p>
       <div class="actions">
-        <a href="index.html#membership" class="btn btn-brass">Apply for Membership</a>
+        <a href="membership.html" class="btn btn-brass">Apply for Membership</a>
       </div>
     </div>
   </div>
@@ -392,7 +388,7 @@
   </div>
 </div>
 
-<footer id="book">
+<footer>
   <div class="wrap footer-grid">
     <div class="footer-col">
       <a href="index.html" class="logo">
@@ -427,7 +423,7 @@
       <h4>Company</h4>
       <ul>
         <li><a href="our-story.html">Our Story</a></li>
-        <li><a href="#membership">Membership</a></li>
+        <li><a href="membership.html">Membership</a></li>
         <li><a href="#">Careers</a></li>
         <li><a href="#">FAQ</a></li>
         <li><a href="#">Booking &amp; Cancellation Policy</a></li>
@@ -459,7 +455,6 @@
     });
   }
 
-  /* Member text fade-out transition scroll effect */
   const memberWrap = document.querySelector('.member-text-wrap');
   const memberFade = document.getElementById('memberFade');
   function clamp(v,min,max){ return Math.max(min,Math.min(max,v)); }
@@ -477,7 +472,6 @@
   window.addEventListener('resize', updateMemberFade);
   updateMemberFade();
 
-  /* Bidirectional Intersection Observer (Reverses on scroll up) */
   const observerOptions = {
     root: null,
     rootMargin: '0px 0px -10% 0px',

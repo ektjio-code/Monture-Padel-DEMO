@@ -158,7 +158,7 @@
   .club-label .name{font-family:'Fraunces',serif;font-size:20px;margin-top:4px;}
   .club-label .city{font-size:12px;opacity:.7;margin-top:2px;}
 
-  /* ---------- BECOME A MEMBER (Restored Original Sticky Fade-Out) ---------- */
+  /* ---------- BECOME A MEMBER ---------- */
   .member-text-wrap{position:relative;height:200vh;margin-top:-100vh;z-index:4;}
   .member-text-panel{position:sticky;top:0;height:100vh;background:var(--white);display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;text-align:center;}
   .member-text-panel .eyebrow{font-size:13px;color:var(--brass);margin-bottom:22px;}
@@ -206,7 +206,7 @@
   .footer-social a:hover{border-color:var(--brass);}
   .footer-bottom{border-top:1px solid rgba(237,234,226,.15);padding:26px 0;display:flex;justify-content:space-between;font-size:12.5px;color:rgba(237,234,226,.6);flex-wrap:wrap;gap:12px;}
 
-  /* ---------- MOBILE STYLES (Sticky Scroll & Carousels Preserved with Safe Sizing) ---------- */
+  /* ---------- MOBILE STYLES ---------- */
   @media(max-width:860px){
     .hero-content{
       text-align:center;
@@ -218,12 +218,9 @@
     .hero-actions{
       justify-content:center;
     }
-
-    /* Use dynamic viewport height for mobile sticky panels to account for browser bars */
     .story-panel, .clubs-panel, .member-text-panel, .kit-panel{
       height: 100dvh;
     }
-
     .story-inner{
       display:flex;
       flex-direction:column;
@@ -253,7 +250,6 @@
       margin-bottom: 16px;
       flex:none;
     }
-
     .clubs-panel{
       padding: 5vh 0;
       justify-content: space-between;
@@ -272,8 +268,6 @@
       font-size: 13.5px;
       max-width:100%;
     }
-
-    /* Keep horizontal scroll carousels with fixed mobile card sizing to avoid clipping */
     .club-row-full, .kit-row-full{
       display: flex;
       grid-template-columns: none;
@@ -285,7 +279,6 @@
       gap: 16px;
       flex: 0 0 auto;
     }
-    
     .club-row-full::-webkit-scrollbar, .kit-row-full::-webkit-scrollbar{
       display:none;
     }
@@ -293,7 +286,6 @@
       -ms-overflow-style:none;
       scrollbar-width:none;
     }
-
     .club-card, .kit-card{
       flex: 0 0 78vw;
       width: 78vw;
@@ -301,14 +293,12 @@
       scroll-snap-align: center;
       border-radius: 6px;
     }
-
     .club-label, .kit-label{
       left: 18px;
       right: 18px;
       bottom: 18px;
       text-align: left;
     }
-
     .member-text-panel .giant{
       font-size: clamp(38px, 11vw, 72px);
     }
@@ -317,7 +307,6 @@
       margin-top: 16px;
       padding: 0 16px;
     }
-
     .nl-inner{
       flex-direction:column;
       text-align:center;
@@ -353,13 +342,13 @@
 
 <header id="siteHeader">
   <div class="nav-row">
-    <a href="#top" class="logo">
+    <a href="index.html" class="logo">
       <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="19" stroke="currentColor"/><path d="M12 20a8 8 0 1 1 16 0 8 8 0 0 1-16 0Z" stroke="currentColor"/><path d="M20 12v16M12 20h16" stroke="currentColor" stroke-width=".6"/></svg>
       The Monture Court
     </a>
     <nav class="links">
-      <a href="#story">Our Story</a>
-      <a href="#membership">Membership</a>
+      <a href="our-story.html">Our Story</a>
+      <a href="membership.html">Membership</a>
       <div class="has-drop">
         <a href="#clubs">Clubs</a>
         <div class="drop">
@@ -371,15 +360,15 @@
       <a href="#events">Events</a>
       <a href="#book">Reserve a Court</a>
     </nav>
-    <a href="#membership" class="cta-pill">Become a Member</a>
+    <a href="membership.html" class="cta-pill">Become a Member</a>
     <div class="burger"><span></span><span></span><span></span></div>
   </div>
 </header>
 
 <div class="mobile-drawer" id="mobileDrawer">
   <nav>
-    <a href="#story" class="drawer-link">Our Story</a>
-    <a href="#membership" class="drawer-link">Membership</a>
+    <a href="our-story.html" class="drawer-link">Our Story</a>
+    <a href="membership.html" class="drawer-link">Membership</a>
     <a href="#clubs" class="drawer-link">Clubs</a>
     <div class="sub-links">
       <a href="#clubs" class="drawer-link">Monture City (Jakarta)</a>
@@ -390,7 +379,7 @@
     <a href="#book" class="drawer-link">Reserve a Court</a>
   </nav>
   <div class="drawer-cta">
-    <a href="#membership" class="cta-pill drawer-link" style="display:inline-block;">Become a Member</a>
+    <a href="membership.html" class="cta-pill drawer-link" style="display:inline-block;">Become a Member</a>
   </div>
 </div>
 
@@ -403,7 +392,7 @@
     <p>The Monture Court is built for a community that's ready to take it to the next level.</p>
     <div class="hero-actions">
       <a href="#book" class="btn btn-brass">Reserve a Court</a>
-      <a href="#membership" class="btn btn-outline">Become a Member</a>
+      <a href="membership.html" class="btn btn-outline">Become a Member</a>
     </div>
   </div>
   <div class="scroll-cue"><span class="line"></span> Scroll</div>
@@ -455,7 +444,7 @@
       <div class="giant">Become a<br>Member</div>
       <p class="sub">Built for a community of people that embrace a life of athletic elegance the spirit of competition and the pleasure of style.</p>
       <div class="actions">
-        <a href="#" class="btn btn-brass">Apply for Membership</a>
+        <a href="membership.html" class="btn btn-brass">Apply for Membership</a>
       </div>
     </div>
   </div>
@@ -501,7 +490,7 @@
 <footer id="book">
   <div class="wrap footer-grid">
     <div class="footer-col">
-      <a href="#top" class="logo">
+      <a href="index.html" class="logo">
         <svg viewBox="0 0 40 40" fill="none" width="22" height="22"><circle cx="20" cy="20" r="19" stroke="currentColor"/><path d="M12 20a8 8 0 1 1 16 0 8 8 0 0 1-16 0Z" stroke="currentColor"/><path d="M20 12v16M12 20h16" stroke="currentColor" stroke-width=".6"/></svg>
         The Monture Court
       </a>
@@ -532,8 +521,8 @@
     <div class="footer-col">
       <h4>Company</h4>
       <ul>
-        <li><a href="#story">Our Story</a></li>
-        <li><a href="#membership">Membership</a></li>
+        <li><a href="our-story.html">Our Story</a></li>
+        <li><a href="membership.html">Membership</a></li>
         <li><a href="#">Careers</a></li>
         <li><a href="#">FAQ</a></li>
         <li><a href="#">Booking &amp; Cancellation Policy</a></li>
@@ -596,7 +585,6 @@
   window.addEventListener('resize', updateMemberFade);
   updateMemberFade();
 
-  /* Mobile Drawer Toggle Logic */
   const burger = document.querySelector('.burger');
   const mobileDrawer = document.getElementById('mobileDrawer');
   const drawerLinks = document.querySelectorAll('.drawer-link');
