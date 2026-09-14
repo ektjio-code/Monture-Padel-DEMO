@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Story — The Monture Court</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivory:#EDEAE2;
+    --ivory-dim:#E2DED3;
+    --white:#FFFFFF;
+    --ink:#15161A;
+    --ink-soft:#22242A;
+    --court:#2C3B2E;
+    --court-deep:#1D281F;
+    --brass:#A8875A;
+    --line:#C7C1B2;
+    --line-on-ink:#3A3C41;
+    --max:1400px;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--ivory);color:var(--ink);font-family:'Inter',sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+  h1,h2,h3{font-family:'Fraunces',serif;font-weight:500;line-height:1.05;letter-spacing:-0.01em;}
+  a{color:inherit;text-decoration:none;}
+  img{display:block;max-width:100%;}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 48px;}
+  @media(max-width:720px){.wrap{padding:0 22px;}}
+
+  /* ---------- NAV ---------- */
+  header{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px 0;background:rgba(21,22,26,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-on-ink);}
+  .nav-row{display:flex;align-items:center;justify-content:space-between;max-width:var(--max);margin:0 auto;padding:0 48px;}
+  .logo{font-family:'Fraunces',serif;font-size:20px;letter-spacing:.02em;color:#fff;display:flex;align-items:center;gap:10px;}
+  .logo svg{width:22px;height:22px;flex:none;}
+  nav.links{display:flex;gap:36px;align-items:center;}
+  nav.links a{color:#fff;font-size:14.5px;font-weight:400;opacity:.88;position:relative;padding:4px 0;}
+  nav.links a:hover{opacity:1;}
+  nav.links a::after{content:'';position:absolute;left:0;bottom:0;height:1px;width:0;background:var(--brass);transition:width .3s ease;}
+  nav.links a:hover::after{width:100%;}
+  .has-drop{position:relative;}
+  .drop{position:absolute;top:calc(100% + 22px);left:50%;transform:translateX(-50%);background:rgba(21,22,26,.98);border:1px solid var(--line-on-ink);padding:22px 26px;display:grid;grid-template-columns:repeat(3,140px);gap:26px;opacity:0;visibility:hidden;transform:translate(-50%,6px);transition:opacity .25s ease, transform .25s ease, visibility .25s;}
+  .has-drop:hover .drop{opacity:1;visibility:visible;transform:translate(-50%,0);}
+  .drop a{display:block;}
+  .drop .club-name{font-size:13.5px;font-weight:500;margin-bottom:4px;}
+  .drop .club-city{font-size:11.5px;opacity:.6;letter-spacing:.03em;}
+  .cta-pill{color:#fff;border:1px solid rgba(255,255,255,.5);padding:10px 22px;font-size:13.5px;border-radius:999px;transition:background .3s ease, color .3s ease, border-color .3s ease;}
+  .cta-pill:hover{background:#fff;color:var(--ink);border-color:#fff;}
+  .burger{display:none;width:26px;height:18px;position:relative;z-index:501;}
+  .burger span{position:absolute;left:0;right:0;height:1px;background:#fff;}
+  .burger span:nth-child(1){top:0;}
+  .burger span:nth-child(2){top:8px;}
+  .burger span:nth-child(3){top:16px;}
+  @media(max-width:960px){nav.links, .cta-pill{display:none;}.burger{display:block;}}
+
+  /* ---------- MOBILE DRAWER ---------- */
+  .mobile-drawer {
+    position: fixed; inset: 0; background: var(--ink); z-index: 499;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 100px 24px 40px; gap: 24px; opacity: 0; visibility: hidden; transform: translateY(-100%);
+    transition: opacity .4s ease, transform .4s cubic-bezier(0.16, 1, 0.3, 1), visibility .4s;
+  }
+  .mobile-drawer.is-open { opacity: 1; visibility: visible; transform: translateY(0); }
+  .mobile-drawer nav { display: flex; flex-direction: column; align-items: center; gap: 20px; text-align: center; }
+  .mobile-drawer nav a { color: #fff; font-family: 'Fraunces', serif; font-size: 24px; opacity: 0.9; }
+  .mobile-drawer .sub-links { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+  .mobile-drawer .sub-links a { font-family: 'Inter', sans-serif; font-size: 14px; color: var(--brass); }
+
+  /* ---------- BIDIRECTIONAL SCROLL REVEAL ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: opacity 1.8s cubic-bezier(0.16, 1, 0.3, 1), transform 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+  .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  /* Staggered steps for sequential entry */
+  .reveal-step-1 { transition-delay: 0.2s; }
+  .reveal-step-2 { transition-delay: 0.6s; }
+  .reveal-step-3 { transition-delay: 1.0s; }
+
+  /* ---------- PAGE HERO BANNER ---------- */
+  .page-hero {
+    background: var(--ink); color: #fff; padding: 180px 0 100px; text-align: center; position: relative;
+  }
+  .page-hero .eyebrow { font-size: 13px; color: var(--brass); margin-bottom: 16px; letter-spacing: .1em; text-transform: uppercase; }
+  .page-hero h1 { font-size: clamp(38px, 6vw, 68px); font-weight: 400; max-width: 18ch; margin: 0 auto; }
+  .page-hero p { margin-top: 24px; font-size: 17px; color: rgba(255,255,255,.75); max-width: 540px; margin-left: auto; margin-right: auto; line-height: 1.6; }
+
+  /* ---------- Monture PADEL EXACT SHOWCASE ---------- */
+  .Monture-padel-showcase {
+    background: var(--court-deep);
+    color: var(--ivory);
+    padding: 180px 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .Monture-padel-showcase h2 {
+    font-size: clamp(32px, 5vw, 64px);
+    font-weight: 400;
+    text-transform: uppercase;
+    line-height: 1.15;
+    letter-spacing: 0.03em;
+    margin-bottom: 40px;
+  }
+  .rp-divider {
+    width: 100%;
+    max-width: 900px;
+    height: 1px;
+    background-color: rgba(237, 234, 226, 0.3);
+    margin: 70px auto;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 2.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .rp-divider.active {
+    transform: scaleX(1);
+  }
+  .rp-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 60px;
+    max-width: 1240px;
+    margin: 80px auto 0;
+    padding: 0 24px;
+    text-align: left;
+  }
+  .rp-col h3 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(22px, 2.5vw, 36px);
+    font-weight: 400;
+    text-transform: uppercase;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    color: #fff;
+  }
+  .rp-col p {
+    font-size: 15.5px;
+    color: rgba(237, 234, 226, 0.75);
+    line-height: 1.7;
+  }
+  .rp-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--brass);
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 28px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .rp-link span {
+    display: inline-block;
+    transition: transform 0.3s ease;
+  }
+  .rp-link:hover span {
+    transform: translateX(6px);
+  }
+  @media(max-width: 860px) {
+    .rp-grid { grid-template-columns: 1fr; gap: 60px; text-align: center; }
+    .rp-col { text-align: center; }
+    .rp-link { justify-content: center; }
+  }
+
+  /* ---------- MANIFESTO SECTION (Unstuck Normal Flow) ---------- */
+  .story-section{background:var(--white);padding:140px 0;}
+  .story-inner{display:grid;grid-template-columns:minmax(320px,40%) 1fr;align-items:center;gap:80px;}
+  .story-copy .eyebrow{font-size:13px;color:var(--brass);margin-bottom:16px;letter-spacing:.08em;text-transform:uppercase;}
+  .story-copy h2{font-size:clamp(28px,3.2vw,40px);font-weight:400;max-width:14ch;}
+  .story-copy p{margin-top:20px;font-size:15.5px;color:#4B4C44;max-width:40ch;}
+  .story-media{width:100%;height:520px;border-radius:4px;overflow:hidden;}
+  .story-media img{width:100%;height:100%;object-fit:cover;}
+
+  /* ---------- FOUNDER SECTION ---------- */
+  .founder-section { background: var(--ivory-dim); padding: 120px 0; }
+  .founder-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 80px; align-items: center; }
+  .founder-img { border-radius: 4px; overflow: hidden; height: 560px; }
+  .founder-img img { width: 100%; height: 100%; object-fit: cover; }
+  .founder-content .eyebrow { font-size: 13px; color: var(--brass); margin-bottom: 16px; letter-spacing: .08em; text-transform: uppercase; }
+  .founder-content h2 { font-size: clamp(32px, 3.8vw, 46px); font-weight: 400; margin-bottom: 24px; }
+  .founder-content p { font-size: 15.5px; color: #4B4C44; margin-bottom: 18px; line-height: 1.7; }
+
+  /* ---------- PILLARS BANNER ---------- */
+  .pillars-section { background: var(--court); color: var(--ivory); padding: 100px 0; }
+  .pillars-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+  .pillar-card h3 { font-size: 24px; color: #fff; margin-bottom: 12px; font-weight: 400; }
+  .pillar-card p { font-size: 14.5px; color: rgba(237,234,226,.72); line-height: 1.6; }
+
+  /* ---------- MEMBERSHIP SCROLL SECTION (From index.html) ---------- */
+  .member-text-wrap{position:relative;height:200vh;z-index:4;}
+  .member-text-panel{position:sticky;top:0;height:100vh;background:var(--white);display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;text-align:center;}
+  .member-text-panel .eyebrow{font-size:13px;color:var(--brass);margin-bottom:22px;}
+  .member-text-panel .giant{font-family:'Fraunces',serif;font-weight:500;text-transform:uppercase;font-size:clamp(46px,12.5vw,190px);line-height:0.9;letter-spacing:-0.01em;color:var(--ink);}
+  .member-text-panel .sub{margin:30px auto 0;font-size:15.5px;color:#4B4C44;max-width:42ch;text-align:center;}
+  .member-text-panel .actions{margin:30px auto 0;text-align:center;}
+  .btn{display:inline-block;padding:14px 30px;font-size:14px;letter-spacing:.02em;transition:background .3s ease,color .3s ease,border-color .3s ease;}
+  .btn-brass{background:var(--brass);color:#fff;}
+  .btn-brass:hover{background:#94714A;}
+
+  /* ---------- NEWSLETTER BAND ---------- */
+  .newsletter-band{background:var(--ink);color:var(--ivory);padding:80px 0;}
+  .nl-inner{display:flex;justify-content:space-between;align-items:center;gap:40px;flex-wrap:wrap;}
+  .nl-inner h3{font-size:clamp(22px,2.6vw,30px);font-weight:400;max-width:16ch;color:#fff;}
+  .nl-form{display:flex;gap:0;border-bottom:1px solid rgba(237,234,226,.4);min-width:340px;max-width:420px;flex:1;}
+  .nl-form input[type=email]{background:none;border:none;color:#fff;font-size:15px;padding:10px 0;flex:1;font-family:inherit;}
+  .nl-form input::placeholder{color:rgba(237,234,226,.5);}
+  .nl-form button{color:var(--brass);font-size:14px;white-space:nowrap;padding:10px 0 10px 16px;}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--court);color:var(--ivory);border-top:1px solid rgba(237,234,226,.15);}
+  .footer-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:40px;padding:80px 0 48px;}
+  .footer-col .logo{margin-bottom:18px;color:#fff;}
+  .footer-col p{font-size:13.5px;color:rgba(237,234,226,.7);max-width:32ch;}
+  .footer-col h4{font-size:13px;color:rgba(237,234,226,.9);margin-bottom:18px;font-weight:500;}
+  .footer-col .loc{margin-bottom:20px;}
+  .footer-col .loc .name{font-size:14px;font-weight:500;margin-bottom:4px;}
+  .footer-col .loc .addr, .footer-col .loc .phone{font-size:13px;color:rgba(237,234,226,.68);}
+  .footer-col ul{list-style:none;}
+  .footer-col ul li{margin-bottom:12px;font-size:13.5px;color:rgba(237,234,226,.82);}
+  .footer-col ul li:hover{color:#fff;}
+  .footer-social{display:flex;gap:16px;margin-top:22px;}
+  .footer-social a{width:34px;height:34px;border:1px solid rgba(237,234,226,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;}
+  .footer-social a:hover{border-color:var(--brass);}
+  .footer-bottom{border-top:1px solid rgba(237,234,226,.15);padding:26px 0;display:flex;justify-content:space-between;font-size:12.5px;color:rgba(237,234,226,.6);flex-wrap:wrap;gap:12px;}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media(max-width:860px){
+    .story-inner{display:flex;flex-direction:column;gap:40px;}
+    .story-media{height:350px;}
+    .founder-grid{grid-template-columns:1fr;gap:40px;}
+    .founder-img{height:380px;}
+    .pillars-grid{grid-template-columns:1fr;gap:30px;}
+    .member-text-panel{height:100dvh;}
+    .member-text-panel .giant{font-size:clamp(38px,11vw,72px);}
+    .member-text-panel .sub{font-size:14px;margin-top:16px;padding:0 16px;}
+    .footer-grid{grid-template-columns:1fr;text-align:center;gap:36px;}
+    .footer-col .logo{justify-content:center;}
+    .footer-col p{margin:0 auto;}
+    .footer-social{justify-content:center;}
+    .footer-bottom{flex-direction:column;align-items:center;text-align:center;}
+  }
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <div class="nav-row">
+    <a href="index.html" class="logo">
+      <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="19" stroke="currentColor"/><path d="M12 20a8 8 0 1 1 16 0 8 8 0 0 1-16 0Z" stroke="currentColor"/><path d="M20 12v16M12 20h16" stroke="currentColor" stroke-width=".6"/></svg>
+      The Monture Court
+    </a>
+    <nav class="links">
+      <a href="our-story.html" style="opacity:1;">Our Story</a>
+      <a href="#membership">Membership</a>
+      <div class="has-drop">
+        <a href="index.html#clubs">Clubs</a>
+        <div class="drop">
+          <a href="index.html#clubs"><div class="club-name">Monture City</div><div class="club-city">JAKARTA</div></a>
+          <a href="index.html#clubs"><div class="club-name">Monture Beach Club</div><div class="club-city">BALI</div></a>
+          <a href="index.html#clubs"><div class="club-name">Monture Highlands</div><div class="club-city">BOGOR</div></a>
+        </div>
+      </div>
+      <a href="index.html#events">Events</a>
+      <a href="index.html#book">Reserve a Court</a>
+    </nav>
+    <a href="#membership" class="cta-pill">Become a Member</a>
+    <div class="burger"><span></span><span></span><span></span></div>
+  </div>
+</header>
+
+<div class="mobile-drawer" id="mobileDrawer">
+  <nav>
+    <a href="our-story.html" class="drawer-link">Our Story</a>
+    <a href="#membership" class="drawer-link">Membership</a>
+    <a href="index.html#clubs" class="drawer-link">Clubs</a>
+    <div class="sub-links">
+      <a href="index.html#clubs" class="drawer-link">Monture City (Jakarta)</a>
+      <a href="index.html#clubs" class="drawer-link">Monture Beach Club (Bali)</a>
+      <a href="index.html#clubs" class="drawer-link">Monture Highlands (Bogor)</a>
+    </div>
+    <a href="index.html#events" class="drawer-link">Events</a>
+    <a href="index.html#book" class="drawer-link">Reserve a Court</a>
+  </nav>
+</div>
+
+<section class="page-hero">
+  <div class="wrap reveal">
+    <div class="eyebrow">Reserved for the Athlete Who Makes Sport a Lifestyle</div>
+    <h1>Pioneering a new culture on and around the court.</h1>
+    <p>The Monture Court is shaping the future of padel through extraordinary architecture, premier clubs, and vibrant community integration.</p>
+  </div>
+</section>
+
+<!-- Monture PADEL SHOWCASE (Staggered one by one, slower, independent steps) -->
+<section class="Monture-padel-showcase">
+  <div class="wrap">
+    <h2 class="reveal">Monture is the future of padel</h2>
+    <div class="rp-divider"></div>
+    <div class="rp-grid">
+      <div class="rp-col reveal reveal-step-1">
+        <h3>Monture is padel</h3>
+        <p>Reinventing the standard of racquet sports with world-class facilities and high-end aesthetic design.</p>
+      </div>
+      <div class="rp-col reveal reveal-step-2">
+        <h3>Culture &amp; Lifestyle</h3>
+        <p>Merging elite athletic competition with vibrant social spaces, gourmet dining, and community connection.</p>
+      </div>
+      <div class="rp-col reveal reveal-step-3">
+        <h3>Reserve your court</h3>
+        <a href="#book" class="rp-link">Book Now <span>→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFESTO SECTION (Unstuck / Normal Scroll Flow) -->
+<section class="story-section">
+  <div class="wrap story-inner">
+    <div class="story-copy reveal">
+      <div class="eyebrow">The Manifesto</div>
+      <h2>Padel is more than a game—it’s a movement</h2>
+      <p>We launched with a simple observation: modern racquet sports were expanding exponentially, yet the environments built for them lacked soul, style, and community connection.</p>
+      <p>By blending high-end design, exceptional dining, and top-tier competition, we are turning casual players into lifelong fanatics and building vibrant community hubs across every city we touch.</p>
+    </div>
+    <div class="story-media reveal reveal-step-1">
+      <img src="padelplayer.jfif" alt="The Monture Court environment">
+    </div>
+  </div>
+</section>
+
+<section class="founder-section">
+  <div class="wrap founder-grid">
+    <div class="founder-img reveal">
+      <img src="Court1.jfif" alt="Founder Vision">
+    </div>
+    <div class="founder-content reveal reveal-step-1">
+      <div class="eyebrow">Leadership &amp; Vision</div>
+      <h2>Designed by players, built for purists</h2>
+      <p>"Our objective from day one was clear: build venues where people genuinely want to spend their entire day—long after the final match point has been played."</p>
+      <p>Drawing from a deep background in competitive athletics and luxury hospitality, our leadership team continues to expand the boundaries of racquet sports, setting a new global standard for the game.</p>
+    </div>
+  </div>
+</section>
+
+<section class="pillars-section">
+  <div class="wrap pillars-grid">
+    <div class="pillar-card reveal">
+      <h3>Athletic Elegance</h3>
+      <p>Every facility is meticulously designed with high-grade materials, championship-spec turf, and sophisticated social lounges.</p>
+    </div>
+    <div class="pillar-card reveal reveal-step-1">
+      <h3>Community First</h3>
+      <p>From curated social round-robins to exclusive evening mixers, our calendar is built around forging lasting human connections.</p>
+    </div>
+    <div class="pillar-card reveal reveal-step-2">
+      <h3>The Lifestyle Standard</h3>
+      <p>Merging elite physical training with custom apparel lines and wellness amenities to support a well-rounded athlete lifestyle.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MEMBERSHIP SCROLL SECTION -->
+<div class="member-text-wrap" id="membership">
+  <div class="member-text-panel">
+    <div class="fade-target" id="memberFade">
+      <div class="eyebrow">Claim Your Court</div>
+      <div class="giant">Become a<br>Member</div>
+      <p class="sub">Built for a community of people that embrace a life of athletic elegance the spirit of competition and the pleasure of style.</p>
+      <div class="actions">
+        <a href="index.html#membership" class="btn btn-brass">Apply for Membership</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="newsletter-band">
+  <div class="wrap nl-inner reveal">
+    <h3>Join the newsletter for early access to clinics, events, and drops.</h3>
+    <form class="nl-form" onsubmit="event.preventDefault();">
+      <input type="email" placeholder="Email address" required>
+      <button type="submit">Submit →</button>
+    </form>
+  </div>
+</div>
+
+<footer id="book">
+  <div class="wrap footer-grid">
+    <div class="footer-col">
+      <a href="index.html" class="logo">
+        <svg viewBox="0 0 40 40" fill="none" width="22" height="22"><circle cx="20" cy="20" r="19" stroke="currentColor"/><path d="M12 20a8 8 0 1 1 16 0 8 8 0 0 1-16 0Z" stroke="currentColor"/><path d="M20 12v16M12 20h16" stroke="currentColor" stroke-width=".6"/></svg>
+        The Monture Court
+      </a>
+      <p>Built for a community of people that embrace a life of athletic elegance the spirit of competition and the pleasure of style.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Instagram">IG</a>
+        <a href="#" aria-label="YouTube">YT</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Locations</h4>
+      <div class="loc">
+        <div class="name">Monture City</div>
+        <div class="addr">412 W 27th St, JAKARTA</div>
+        <div class="phone">212-555-0148</div>
+      </div>
+      <div class="loc">
+        <div class="name">Monture Beach Club</div>
+        <div class="addr">1780 SW 8th St, BALI</div>
+        <div class="phone">786-555-0132</div>
+      </div>
+      <div class="loc">
+        <div class="name">Monture Highlands</div>
+        <div class="addr">220 Puncak Blvd, BOGOR</div>
+        <div class="phone">415-555-0119</div>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="our-story.html">Our Story</a></li>
+        <li><a href="#membership">Membership</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Booking &amp; Cancellation Policy</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Book</h4>
+      <ul>
+        <li><a href="#">Reserve a Court</a></li>
+        <li><a href="#">Clinics</a></li>
+        <li><a href="#">Private Lessons</a></li>
+        <li><a href="#">Events</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>© 2026 The Monture Court. Demo Website</span>
+    <span>Design By Monture Studio</span>
+  </div>
+</footer>
+
+<script>
+  const burger = document.querySelector('.burger');
+  const mobileDrawer = document.getElementById('mobileDrawer');
+  if (burger && mobileDrawer) {
+    burger.addEventListener('click', () => {
+      mobileDrawer.classList.toggle('is-open');
+      document.body.style.overflow = mobileDrawer.classList.contains('is-open') ? 'hidden' : '';
+    });
+  }
+
+  /* Member text fade-out transition scroll effect */
+  const memberWrap = document.querySelector('.member-text-wrap');
+  const memberFade = document.getElementById('memberFade');
+  function clamp(v,min,max){ return Math.max(min,Math.min(max,v)); }
+  function updateMemberFade(){
+    if(!memberWrap) return;
+    const rect = memberWrap.getBoundingClientRect();
+    const total = memberWrap.offsetHeight - window.innerHeight;
+    if (total <= 0) { memberFade.style.opacity = 1; return; }
+    const scrolled = clamp(-rect.top, 0, total);
+    const progress = scrolled / total;
+    let opacity = progress > 0.5 ? 1 - (progress - 0.5) / 0.5 : 1;
+    memberFade.style.opacity = clamp(opacity, 0, 1);
+  }
+  window.addEventListener('scroll', updateMemberFade, { passive:true });
+  window.addEventListener('resize', updateMemberFade);
+  updateMemberFade();
+
+  /* Bidirectional Intersection Observer (Reverses on scroll up) */
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px 0px -10% 0px',
+    threshold: 0.15
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+      } else {
+        entry.target.classList.remove('active');
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.reveal, .rp-divider').forEach(el => {
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
