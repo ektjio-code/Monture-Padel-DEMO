@@ -158,8 +158,8 @@
   .club-label .name{font-family:'Fraunces',serif;font-size:20px;margin-top:4px;}
   .club-label .city{font-size:12px;opacity:.7;margin-top:2px;}
 
-  /* ---------- BECOME A MEMBER ---------- */
-  .member-text-wrap{position:relative;height:140vh;margin-top:-70vh;z-index:4;}
+  /* ---------- BECOME A MEMBER (Restored Original Sticky Fade-Out) ---------- */
+  .member-text-wrap{position:relative;height:200vh;margin-top:-100vh;z-index:4;}
   .member-text-panel{position:sticky;top:0;height:100vh;background:var(--white);display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;text-align:center;}
   .member-text-panel .eyebrow{font-size:13px;color:var(--brass);margin-bottom:22px;}
   .member-text-panel .giant{font-family:'Fraunces',serif;font-weight:500;text-transform:uppercase;font-size:clamp(46px,12.5vw,190px);line-height:0.9;letter-spacing:-0.01em;color:var(--ink);}
@@ -579,10 +579,6 @@
   function clamp(v,min,max){ return Math.max(min,Math.min(max,v)); }
 
   function updateMemberFade(){
-    if (window.innerWidth <= 860) {
-      if(memberFade) memberFade.style.opacity = 1;
-      return;
-    }
     const rect = memberWrap.getBoundingClientRect();
     const total = memberWrap.offsetHeight - window.innerHeight;
     if (total <= 0) { memberFade.style.opacity = 1; return; }
