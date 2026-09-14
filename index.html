@@ -110,8 +110,8 @@
 
   /* ---------- HERO ---------- */
   .hero{position:relative;height:100vh;min-height:640px;display:flex;align-items:flex-end;overflow:hidden;background:var(--ink);z-index:1;}
-  .hero video, .hero .fallback-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;filter:grayscale(100%);transition:opacity .5s ease, filter .5s ease;}
-  .hero video.is-loaded{opacity:.86;filter:grayscale(0%);}
+  .hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s ease;}
+  .hero video.is-loaded{opacity:.86;}
   .hero::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,16,19,.35) 0%, rgba(15,16,19,.15) 35%, rgba(15,16,19,.85) 100%);}
   .hero-content{position:relative;z-index:2;color:#fff;padding-bottom:88px;max-width:760px;opacity:0;transform:translateY(22px);animation:heroIn 1.1s .25s cubic-bezier(.16,.9,.3,1) forwards;}
   @keyframes heroIn{to{opacity:1;transform:translateY(0);}}
@@ -206,7 +206,7 @@
   .footer-social a:hover{border-color:var(--brass);}
   .footer-bottom{border-top:1px solid rgba(237,234,226,.15);padding:26px 0;display:flex;justify-content:space-between;font-size:12.5px;color:rgba(237,234,226,.6);flex-wrap:wrap;gap:12px;}
 
-  /* ---------- MOBILE STYLES (Vertical Stack Locked) ---------- */
+  /* ---------- MOBILE STYLES (Sticky Scroll & Carousels Preserved with Safe Sizing) ---------- */
   @media(max-width:860px){
     .hero-content{
       text-align:center;
@@ -219,26 +219,17 @@
       justify-content:center;
     }
 
-    /* Lock mobile to pure vertical stack - disable sticky overlays */
-    .story-wrap, .clubs-wrap, .member-text-wrap{
-      height: auto !important;
-      margin-top: 0 !important;
-      z-index: 2;
-    }
-
+    /* Use dynamic viewport height for mobile sticky panels to account for browser bars */
     .story-panel, .clubs-panel, .member-text-panel, .kit-panel{
-      position: relative !important;
-      top: auto !important;
-      height: auto !important;
-      padding: 60px 0 !important;
+      height: 100dvh;
     }
 
     .story-inner{
       display:flex;
       flex-direction:column;
       justify-content:center;
-      height:auto;
-      padding:0;
+      height:100dvh;
+      padding: 30px 0;
     }
     .story-copy{
       padding:0 22px;
@@ -246,54 +237,85 @@
       text-align:center;
       align-items:center;
     }
-    .story-copy h2, .story-copy p{
-      max-width:100%;
+    .story-copy h2{
+      font-size: clamp(24px, 6vw, 32px);
+    }
+    .story-copy p{
+      font-size: 14px;
+      margin-top: 12px;
+    }
+    .story-copy p + p{
+      margin-top: 8px;
     }
     .story-media{
-      height:300px;
+      height: 28vh;
       order:1;
-      margin-bottom:24px;
+      margin-bottom: 16px;
       flex:none;
     }
 
+    .clubs-panel{
+      padding: 5vh 0;
+      justify-content: space-between;
+    }
     .section-head{
       flex-direction:column;
       align-items:center;
       text-align:center;
-      gap:12px;
-      margin-bottom:24px;
-      padding: 0 22px;
+      gap:8px;
+      margin-bottom: 16px;
     }
-    .section-head h2, .section-head p{
+    .section-head h2{
+      font-size: clamp(22px, 5vw, 28px);
+    }
+    .section-head p{
+      font-size: 13.5px;
       max-width:100%;
     }
 
-    /* Convert horizontal carousels to vertical cards on mobile */
+    /* Keep horizontal scroll carousels with fixed mobile card sizing to avoid clipping */
     .club-row-full, .kit-row-full{
-      display: grid !important;
-      grid-template-columns: 1fr !important;
-      overflow-x: visible !important;
-      height: auto !important;
-      padding: 0 22px !important;
-      gap: 20px !important;
+      display: flex;
+      grid-template-columns: none;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      height: 52vh;
+      padding: 0 22px 10px;
+      gap: 16px;
+      flex: 0 0 auto;
+    }
+    
+    .club-row-full::-webkit-scrollbar, .kit-row-full::-webkit-scrollbar{
+      display:none;
+    }
+    .club-row-full, .kit-row-full{
+      -ms-overflow-style:none;
+      scrollbar-width:none;
     }
 
     .club-card, .kit-card{
-      width: 100% !important;
-      height: 380px !important;
-      flex: none !important;
+      flex: 0 0 78vw;
+      width: 78vw;
+      height: 100%;
+      scroll-snap-align: center;
       border-radius: 6px;
     }
 
     .club-label, .kit-label{
-      left: 20px;
-      right: 20px;
-      bottom: 20px;
+      left: 18px;
+      right: 18px;
+      bottom: 18px;
       text-align: left;
     }
 
     .member-text-panel .giant{
       font-size: clamp(38px, 11vw, 72px);
+    }
+    .member-text-panel .sub{
+      font-size: 14px;
+      margin-top: 16px;
+      padding: 0 16px;
     }
 
     .nl-inner{
@@ -442,7 +464,7 @@
 <div class="kit-wrap">
   <div class="kit-panel">
     <div class="wrap section-head">
-      <h2>The Kit</h2>
+      <h2>The kit</h2>
       <p>Look the part, play the part.</p>
     </div>
     <div class="kit-row-full">
